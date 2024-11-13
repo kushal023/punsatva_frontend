@@ -1,95 +1,118 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './EnhancedSearch.css';
 
-const ProductSearch = () => {
-  // State for form inputs
+function EnhancedSearch() {
+  // State for user inputs and search results
   const [category, setCategory] = useState('');
   const [company, setCompany] = useState('');
-  const [Product_Name, setProduct_Name] = useState('');
-  const [products, setProducts] = useState([]); // State for search results
-  const [error, setError] = useState(null); // State for error handling
+  const [productName, setProductName] = useState('');
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Function to handle form submission
+  // Handle search form submission
   const handleSearch = async (e) => {
     e.preventDefault();
-
-    // Create the request payload with non-empty fields
-    const searchCriteria = {};
-    if (category) searchCriteria.Category = category;
-    if (company) searchCriteria.Company = company;
-    if (Product_Name) searchCriteria.Product = Product_Name;
+    setError(null); // Reset error before new search
+    setIsLoading(true);
 
     try {
-      const response = await axios.post('https://punsatva.onrender.com/search', searchCriteria);
-      console.log("searchCriteria", searchCriteria)
-      console.log("response", response)
-
-      setProducts(response.data); // Update products with search results
-      setError(null); // Reset any error
-    } catch (error) {
-      setError('Error retrieving products');
-      setProducts([]);
+      const response = await axios.post('http://localhost:3001/search', {
+        category: category || undefined,
+        company: company || undefined,
+        productName: productName || undefined,
+      });
+      setProducts(response.data);
+    } catch (err) {
+      setError('An error occurred while fetching the data. Please try again.');
+      setProducts([]); // Clear products in case of error
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  return (
-    <div>
-      <h2>Product Search</h2>
-      
-      {/* Search form */}
-      <form onSubmit={handleSearch}>
-        <div>
-          <label>Category:</label>
-          <input
-            type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            placeholder="Enter category"
-          />
+  // Render skeletons for loading state
+  const renderSkeletons = () => (
+    <div className="results-grid">
+      {[...Array(6)].map((_, index) => (
+        <div key={index} className="product-card skeleton">
+          <div className="skeleton-line"></div>
+          <div className="skeleton-line"></div>
+          <div className="skeleton-line"></div>
         </div>
-        <div>
-          <label>Company:</label>
-          <input
-            type="text"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-            placeholder="Enter company"
-          />
-        </div>
-        <div>
-          <label>Product Name:</label>
-          <input
-            type="text"
-            value={Product_Name}
-            onChange={(e) => setProduct_Name(e.target.value)}
-            placeholder="Enter product name"
-          />
-        </div>
-        <button type="submit">Search</button>
-      </form>
-
-      {/* Display error message if there's any */}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      {/* Display search results */}
-      <div>
-        <h3>Search Results</h3>
-        {products.length > 0 ? (
-          <ul>
-            {products.map((product, index) => (
-              <li key={index}>
-                <strong>Category:</strong> {product.Category}, 
-                <strong> Company:</strong> {product.Company}, 
-                <strong> Product_Name:</strong> {product.Product_Name}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No products found.</p>
-        )}
-      </div>
+      ))}
     </div>
   );
-};
 
-export default ProductSearch;
+  // Render product search results
+  const renderResults = () => (
+    <div className="results-grid">
+      {products.map((product) => (
+        <div key={product.id} className="product-card">
+          <h3>{product.name}</h3>
+          <p><span>Category:</span> {product.category}</p>
+          <p><span>Company:</span> {product.company}</p>
+          <p className="price">${product.price.toFixed(2)}</p>
+        </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <div className="container">
+      <div className="search-card">
+        <h2 className="search-title">Product Search</h2>
+        <form onSubmit={handleSearch} className="search-form">
+          <div className="form-inputs">
+            <div className="form-group">
+              <label htmlFor="category">Category</label>
+              <input
+                id="category"
+                type="text"
+                placeholder="Enter category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="company">Company</label>
+              <input
+                id="company"
+                type="text"
+                placeholder="Enter company name"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="productName">Product Name</label>
+              <input
+                id="productName"
+                type="text"
+                placeholder="Enter product name"
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
+              />
+            </div>
+          </div>
+          <button type="submit" className="search-button" disabled={isLoading}>
+            {isLoading ? 'Searching...' : 'Search Products'}
+          </button>
+        </form>
+      </div>
+
+      {error && (
+        <div className="error-message">
+          <p>{error}</p>
+        </div>
+      )}
+
+      {isLoading ? renderSkeletons() : products.length > 0 ? renderResults() : (
+        !error && <div className="no-results">No products found. Try adjusting your search criteria.</div>
+      )}
+    </div>
+  );
+}
+
+export default EnhancedSearch;
