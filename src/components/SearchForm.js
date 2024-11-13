@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaTag, FaBuilding, FaBoxOpen } from 'react-icons/fa';
 
 const SearchForm = ({ onSearch, loading, error }) => {
   const [category, setCategory] = useState('');
@@ -19,8 +20,8 @@ const SearchForm = ({ onSearch, loading, error }) => {
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6 bg-white p-6 rounded-lg shadow-md">
       <div>
-        <label className="block text-gray-700 font-semibold mb-2" htmlFor="category">
-          Category
+        <label className="block text-gray-700 font-semibold mb-2 flex items-center" htmlFor="category">
+          <FaTag className="mr-2" /> Category
         </label>
         <input
           id="category"
@@ -33,8 +34,8 @@ const SearchForm = ({ onSearch, loading, error }) => {
       </div>
 
       <div>
-        <label className="block text-gray-700 font-semibold mb-2" htmlFor="company">
-          Company
+        <label className="block text-gray-700 font-semibold mb-2 flex items-center" htmlFor="company">
+          <FaBuilding className="mr-2" /> Company
         </label>
         <input
           id="company"
@@ -47,8 +48,8 @@ const SearchForm = ({ onSearch, loading, error }) => {
       </div>
 
       <div>
-        <label className="block text-gray-700 font-semibold mb-2" htmlFor="productName">
-          Product Name
+        <label className="block text-gray-700 font-semibold mb-2 flex items-center" htmlFor="productName">
+          <FaBoxOpen className="mr-2" /> Product Name
         </label>
         <input
           id="productName"
