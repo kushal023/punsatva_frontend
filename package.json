@@ -35,5 +35,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "description": "This repository contains the frontend code for the **Product Management Dashboard**, an interactive interface allowing users to search and filter product data based on criteria like Category, Company, Product Name, and Packing. This frontend connects to a backend API that handles data storage and retrieval (the backend code is hosted in a separate repository).",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.14"
   }
 }
