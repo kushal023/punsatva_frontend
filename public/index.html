@@ -1,43 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Search</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-5">
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  <header class="w-full max-w-6xl bg-gradient-to-r from-indigo-500 to-blue-600 text-white shadow-xl rounded-xl p-8 mx-auto text-center">
+    <h2 class="text-2xl font-medium mb-4">Search for Products</h2>
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6">
+        Discover the perfect product crafted by our talented community
+    </h1>
+    <p class="text-lg max-w-3xl mx-auto">
+        Explore a wide range of unique products designed by passionate creators. Let us guide you to your next favorite find!
+    </p>
+  </header>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  <main class="w-full max-w-6xl mt-8 space-y-8">
+    <section id="filters" class="bg-white p-8 shadow-lg rounded-xl border border-gray-300">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Filters</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div>
+          <label for="product-name" class="block text-sm font-medium text-gray-700">Product Name</label>
+          <input id="product-name" type="text" placeholder="Enter product name" class="mt-2 w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div>
+          <label for="category" class="block text-sm font-medium text-gray-700">Choose Category</label>
+          <select id="category" class="mt-2 w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <option value="">Select Category</option>
+            <option value="electronics">Electronics</option>
+            <option value="furniture">Furniture</option>
+          </select>
+        </div>
+        <div>
+          <label for="company" class="block text-sm font-medium text-gray-700">Choose Company</label>
+          <select id="company" class="mt-2 w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <option value="">Select Company</option>
+            <option value="company-a">Company A</option>
+            <option value="company-b">Company B</option>
+          </select>
+        </div>
+      </div>
+      <button id="search-button" class="mt-6 bg-blue-600 text-white py-3 px-6 rounded-lg shadow hover:bg-blue-700 focus:outline-none w-full sm:w-auto">
+        Search
+      </button>
+    </section>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    <section id="results" class="bg-white p-8 shadow-lg rounded-xl">
+      <h3 class="text-[#111518] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+        Results
+      </h3>
+      <div class="flex flex-col p-4">
+        <div class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#dbe1e6] px-6 py-14">
+          <div class="flex max-w-[480px] flex-col items-center gap-2">
+            <p class="text-[#111518] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">
+              No products found
+            </p>
+            <p class="text-[#111518] text-sm font-normal leading-normal max-w-[480px] text-center">
+              Try adjusting your search criteria or filters
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
 </html>
