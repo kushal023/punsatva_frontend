@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaTag, FaBuilding, FaBoxOpen } from 'react-icons/fa';
 
-const SearchForm = ({ onSearch, loading, error }) => {
-  const [category, setCategory] = useState('');
-  const [company, setCompany] = useState('');
-  const [productName, setProductName] = useState('');
-
+const SearchForm = ({
+  onSearch,
+  loading,
+  error,
+  category,
+  setCategory,
+  company,
+  setCompany,
+  productName,
+  setProductName,
+}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 

@@ -5,22 +5,21 @@ import SearchForm from './SearchForm';
 const App = () => {
   const [category, setCategory] = useState('');
   const [company, setCompany] = useState('');
-  const [Product_Name, setProduct_Name] = useState('');
+  const [productName, setProductName] = useState('');
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Function to handle form submission
   const handleSearch = async (searchCriteria) => {
     setLoading(true);
     setError(null);
-    
+    setProducts([]);
+
     try {
       const response = await axios.post('https://punsatva.onrender.com/search', searchCriteria);
       setProducts(response.data);
-    } catch (error) {
-      setError('Error retrieving products');
-      setProducts([]);
+    } catch (err) {
+      setError('Something went wrong. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -30,9 +29,24 @@ const App = () => {
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4 text-center">Product Search</h2>
 
-      <SearchForm onSearch={handleSearch} loading={loading} error={error} />
+      <SearchForm
+        onSearch={handleSearch}
+        loading={loading}
+        error={error}
+        category={category}
+        setCategory={setCategory}
+        company={company}
+        setCompany={setCompany}
+        productName={productName}
+        setProductName={setProductName}
+      />
 
-      {/* Display results */}
+      {error && (
+        <div className="mt-4 p-4 text-red-600 bg-red-100 rounded-md">
+          <strong>Error:</strong> {error}
+        </div>
+      )}
+
       <div className="mt-6">
         <h3 className="text-xl font-semibold">Search Results</h3>
         {loading ? (
@@ -50,7 +64,7 @@ const App = () => {
                 ))}
               </ul>
             ) : (
-              <p>No products found.</p>
+              <p className="mt-4 text-gray-500">No products found.</p>
             )}
           </div>
         )}

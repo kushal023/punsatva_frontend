@@ -1,15 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Search</title>
-    <br>
-    <br>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600&display=swap" rel="stylesheet">
-    <link href="/dist/output.css" rel="stylesheet"> <!-- Tailwind CSS -->
-  </head>
-  <body class="font-inter bg-gray-50">
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Search</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-5">
+
+  <header class="w-full max-w-6xl bg-gradient-to-r from-indigo-500 to-blue-600 text-white shadow-xl rounded-xl p-8 mx-auto text-center">
+    <h2 class="text-2xl font-medium mb-4">Search for Products</h2>
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight mb-6">
+        Discover the perfect product crafted by our talented community
+    </h1>
+    <p class="text-lg max-w-3xl mx-auto">
+        Explore a wide range of unique products designed by passionate creators. Let us guide you to your next favorite find!
+    </p>
+  </header>
+
+  <main class="w-full max-w-6xl mt-8 space-y-8">
+    <section id="filters" class="bg-white p-8 shadow-lg rounded-xl border border-gray-300">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Filters</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div>
+          <label for="product-name" class="block text-sm font-medium text-gray-700">Product Name</label>
+          <input id="product-name" type="text" placeholder="Enter product name" class="mt-2 w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div>
+          <label for="category" class="block text-sm font-medium text-gray-700">Choose Category</label>
+          <select id="category" class="mt-2 w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <option value="">Select Category</option>
+            <option value="electronics">Electronics</option>
+            <option value="furniture">Furniture</option>
+          </select>
+        </div>
+        <div>
+          <label for="company" class="block text-sm font-medium text-gray-700">Choose Company</label>
+          <select id="company" class="mt-2 w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
+            <option value="">Select Company</option>
+            <option value="company-a">Company A</option>
+            <option value="company-b">Company B</option>
+          </select>
+        </div>
+      </div>
+      <button id="search-button" class="mt-6 bg-blue-600 text-white py-3 px-6 rounded-lg shadow hover:bg-blue-700 focus:outline-none w-full sm:w-auto">
+        Search
+      </button>
+    </section>
+
+    <section id="results" class="bg-white p-8 shadow-lg rounded-xl">
+      <h3 class="text-[#111518] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+        Results
+      </h3>
+      <div class="flex flex-col p-4">
+        <div class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#dbe1e6] px-6 py-14">
+          <div class="flex max-w-[480px] flex-col items-center gap-2">
+            <p class="text-[#111518] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">
+              No products found
+            </p>
+            <p class="text-[#111518] text-sm font-normal leading-normal max-w-[480px] text-center">
+              Try adjusting your search criteria or filters
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
 </html>
