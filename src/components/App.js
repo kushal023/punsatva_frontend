@@ -16,8 +16,9 @@ const App = () => {
     setProducts([]);
 
     try {
-      const response = await axios.post('https://punsatva.onrender.com/search', searchCriteria);
-      setProducts(response.data);
+      // Replace this with your actual backend endpoint
+      const { data } = await axios.post('https://punsatva.onrender.com/search', searchCriteria);
+      setProducts(data);
     } catch (err) {
       setError('Something went wrong. Please try again later.');
     } finally {

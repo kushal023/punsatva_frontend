@@ -54,11 +54,11 @@ const SearchForm = ({
       </div>
 
       <div>
-        <label className="block text-gray-700 font-semibold mb-2 flex items-center" htmlFor="productName">
+        <label className="block text-gray-700 font-semibold mb-2 flex items-center" htmlFor="product-name">
           <FaBoxOpen className="mr-2" /> Product Name
         </label>
         <input
-          id="productName"
+          id="product-name"
           type="text"
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
@@ -69,13 +69,11 @@ const SearchForm = ({
 
       <button
         type="submit"
-        className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         disabled={loading}
+        className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 disabled:opacity-50"
       >
         {loading ? 'Searching...' : 'Search'}
       </button>
-
-      {error && <p className="text-red-500 mt-4">{error}</p>}
     </form>
   );
 };
